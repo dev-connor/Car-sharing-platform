@@ -1,6 +1,6 @@
 spring:
   profiles:
-    default: int
+    active: int
     include: jwt
   jpa:
     open-in-view: false

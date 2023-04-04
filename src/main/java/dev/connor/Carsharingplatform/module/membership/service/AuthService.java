@@ -14,10 +14,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component("userDetailsService")
-public class CustomUserDetailsService implements UserDetailsService {
+public class AuthService implements UserDetailsService {
     private final UserRepository userRepository;
 
-    public CustomUserDetailsService(UserRepository userRepository) {
+    public AuthService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
