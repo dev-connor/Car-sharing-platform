@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  rds:
+    image: postgres
+    restart: always
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./local-rds-init.sql:/docker-entrypoint-initdb.d/local-rds-init.sql
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=flex123!@#
+      - TZ=UTC

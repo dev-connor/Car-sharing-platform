@@ -1,0 +1,35 @@
+spring:
+  profiles:
+    default: int
+    include: jwt
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+        format_sql: true
+        show_sql: true
+        use_sql_comments: false
+        query:
+          in_clause_parameter_padding: true
+          default_batch_fetch_size: 50
+  datasource:
+    url: jdbc:postgresql://${postgres.host}:${postgres.port}/${postgres.database}
+    username: ${postgres.username}
+    password: ${postgres.password}
+
+---
+spring:
+  profiles: dev
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    initialization-mode: always
+postgres:
+  host: localhost
+  port: 5433
+  database: dev
+  username: admin
+  password: flex123!@#
