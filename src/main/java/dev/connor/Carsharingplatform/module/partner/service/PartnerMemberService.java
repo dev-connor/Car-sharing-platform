@@ -5,9 +5,12 @@ import com.querydsl.core.BooleanBuilder;
 import dev.connor.Carsharingplatform.module.partner.dto.AdminPartnerMemberDto;
 import dev.connor.Carsharingplatform.module.partner.entity.PartnerMember;
 import dev.connor.Carsharingplatform.module.partner.repository.PartnerMemberRepository;
+import javassist.NotFoundException;
+import javassist.bytecode.DuplicateMemberException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,6 +31,11 @@ public class PartnerMemberService {
 
     @Transactional
     public AdminPartnerMemberDto.Detail save(AdminPartnerMemberDto.ReqInsert dto) {
+
+        if (partnerMemberRepository.findByPhoneNumber(dto.getPhoneNumber()).isPresent()) {
+            throw new DuplicateKeyException("이미 가입되어 있는 유저입니다.");
+        }
+
         var entity = mapper.map(dto, PartnerMember.class);
 
         if(entity.getUsedYn() == null) {
