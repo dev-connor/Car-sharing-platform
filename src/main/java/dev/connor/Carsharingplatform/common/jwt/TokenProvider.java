@@ -15,9 +15,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -34,6 +32,27 @@ public class TokenProvider implements InitializingBean {
             @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
         this.secret = secret;
         this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
+    }
+
+    /**
+     * swagger 를 위한 JWT 토큰 생성
+     * Arguments 에 application-jwt.yml 의 secretKey 를 넣어준다.
+     */
+    public static void main(String[] args) {
+        byte[] keyBytes = Decoders.BASE64.decode(args[0]);
+        var key = Keys.hmacShaKeyFor(keyBytes);
+
+        long now = (new Date()).getTime();
+        Date validity = new Date(now + 86400);
+
+        var jwt = Jwts.builder()
+                .setSubject("swagger")
+                .claim(AUTHORITIES_KEY, "ROLE_ADMIN")
+                .signWith(key, SignatureAlgorithm.HS512)
+                .setExpiration(validity)
+                .compact();
+
+        System.out.println("Bearer " + jwt);
     }
 
     @Override

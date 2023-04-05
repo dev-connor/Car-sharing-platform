@@ -7,10 +7,9 @@ import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.schema.ModelRef;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.service.Parameter;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -43,11 +42,30 @@ public class SwaggerConfig {
                 .globalOperationParameters(globalParamters)
                 .useDefaultResponseMessages(false)
                 .groupName(version)
+                .securityContexts(List.of(getSecurityContexts()))
+                .securitySchemes(List.of(getApiKey()))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("dev.connor.Carsharingplatform"))
                 .paths(PathSelectors.ant("/**"))
                 .build()
                 .apiInfo(apiInfo(title, version));
+    }
+
+    private SecurityContext getSecurityContexts() {
+        return SecurityContext.builder()
+                .securityReferences(getDefaultAuth())
+                .build();
+    }
+
+    private List<SecurityReference> getDefaultAuth() {
+        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = authorizationScope;
+        return List.of(new SecurityReference("Authorization", authorizationScopes));
+    }
+
+    private ApiKey getApiKey() {
+        return new ApiKey("Authorization", "Authorization", "header");
     }
 
     @Bean

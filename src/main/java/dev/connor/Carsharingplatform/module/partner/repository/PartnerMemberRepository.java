@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @Repository
 public interface PartnerMemberRepository extends JpaRepository<PartnerMember, Long>, PartnerMemberCustomRepository {
+    Optional<PartnerMember> findPartnerMemberByPhoneNumber(String phoneNumber);
 }
 
 interface PartnerMemberCustomRepository {

@@ -11,7 +11,7 @@ import lombok.*;
 public class LoginDto {
 
     @ApiModelProperty(example = "admin")
-    private String username;
+    private String phoneNumber;
 
     @ApiModelProperty(example = "admin")
     private String password;
