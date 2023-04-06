@@ -16,7 +16,7 @@ import java.util.List;
 
 public class AuthenticationDto {
 
-    @Data
+    @Getter
     public static class LoginDto {
 
         @NotNull
@@ -30,7 +30,7 @@ public class AuthenticationDto {
         String password; // 비밀번호(RSA로 암호화된 값)
     }
 
-    @Data
+    @Getter
     public static class ChangedPassword extends LoginDto {
 
         @NotNull
@@ -38,7 +38,7 @@ public class AuthenticationDto {
         String newPassword; // 비밀번호(RSA로 암호화된 값)
     }
 
-    @Data
+    @Getter
     public static class LoginDetailDto extends LoginDto {
 
         String loginIp; // 클라이언트 IP(서버 설정)
@@ -46,14 +46,14 @@ public class AuthenticationDto {
         String refreshToken; // refresh token
     }
 
-    @Data
+    @Getter
     @NoArgsConstructor
     public static class LoginResponseDto {
         LoginHistoryDto loginHistory; // 최근 접속 기록
         AccessTokenDto accessTokenDetail; // 발급된 토큰 상세 정보
     }
 
-    @Data
+    @Getter
     @Builder
     public static class LoginHistoryDto {
         String recentLoginIp; // 최근에 접속한 ip
@@ -62,7 +62,7 @@ public class AuthenticationDto {
         Instant recentPasswordChangeTime; // 최근 비밀번호 변경일
     }
 
-    @Data
+    @Getter
     public static class AuthenticationResponseDto {
         AuthenticationSecurityAlertDto securityAlert; // 보안경고사항
         AccessTokenDto accessTokenDetail; // access token
@@ -73,21 +73,21 @@ public class AuthenticationDto {
                     !recentHistory.getRecentLoginUserAgent().equals(userAgent);
             var isIpDifferent = recentHistory.getRecentLoginIp() != null && !recentHistory.getRecentLoginIp().equals(ip);
             var showAlert = isUserAgentDifferent || isIpDifferent;
-            securityAlert.setShowAlert(showAlert);
-            if (showAlert) {
-                securityAlert.setMessage("최종 접속 계정(IP, 매체)정보와 상이합니다.");
-            }
+//            securityAlert.setShowAlert(showAlert);
+//            if (showAlert) {
+//                securityAlert.setMessage("최종 접속 계정(IP, 매체)정보와 상이합니다.");
+//            }
             this.securityAlert = securityAlert;
         }
     }
 
-    @Data
+    @Getter
     public static class AuthenticationSecurityAlertDto {
         boolean showAlert; // 보안경고메시지 노출 여부
         String message; // 노출할 보안경고메시지
     }
 
-    @Data
+    @Getter
     @NoArgsConstructor
     public static class AccessTokenDto {
         String success;
@@ -110,7 +110,7 @@ public class AuthenticationDto {
         @JsonAlias("data")
         UserIdDto data = new UserIdDto();
 
-        @Data
+        @Getter
         @NoArgsConstructor
         public static class UserIdDto {
             String userId;
@@ -122,7 +122,7 @@ public class AuthenticationDto {
         }
     }
 
-    @Data
+    @Getter
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CcspUserDto {
@@ -135,7 +135,7 @@ public class AuthenticationDto {
         Boolean social; // 소셜 로그인 등록 여부
     }
 
-    @Data
+    @Getter
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CcspUserCertDto {
@@ -165,7 +165,7 @@ public class AuthenticationDto {
     }
 
 
-    @Data
+    @Getter
     public static class SignOutRequestDto extends Password {
         String outReasonEtcOpinion; // 기타 탈퇴 사requestDto
         /**
@@ -189,7 +189,7 @@ public class AuthenticationDto {
         boolean withRedMembers; // Red members 탈퇴
     }
 
-    @Data
+    @Getter
     public static class Password {
 
         @NotNull
@@ -197,13 +197,13 @@ public class AuthenticationDto {
         String password; // 비밀번호
     }
 
-    @Data
+    @Getter
     public static class UserProfile {
 
         @NotNull
         AuthenticationDto.UserProfile.ChangedPassword password; // 비밀번호
 
-        @Data
+        @Getter
         public static class ChangedPassword {
 
             @NotNull
@@ -216,7 +216,7 @@ public class AuthenticationDto {
         }
     }
 
-    @Data
+    @Getter
     public static class DriverLicenseDto {
         /**
          * 운전명허타입 코드
@@ -289,7 +289,7 @@ public class AuthenticationDto {
         }
     }
 
-    @Data
+    @Getter
     public static class RegisterMemberDto {
 
         @NotNull
@@ -355,12 +355,12 @@ public class AuthenticationDto {
         }
     }
 
-    @Data
+    @Getter
     public static class AuthenticationMemberDto extends RegisterMemberDto {
         String serviceMemberId;
     }
 
-    @Data
+    @Getter
     public static class SubmitOtpRequest {
 
         @NotNull
@@ -368,7 +368,7 @@ public class AuthenticationDto {
         String otpCode; // 유저가 입력한 OTP Code
     }
 
-    @Data
+    @Getter
     public static class ChanagePasswordRequest {
         /**
          *
@@ -378,7 +378,7 @@ public class AuthenticationDto {
         String password; // 비밀번호
     }
 
-    @Data
+    @Getter
     public static class SubmitIdAndNameRequest {
 
         @NotNull
@@ -393,7 +393,7 @@ public class AuthenticationDto {
         String name;
     }
 
-    @Data
+    @Getter
     public static class CcspUserAuthenticate {
         AccessTokenDto accessTokenDto; // CCSP 발급 Accesstoken
 

@@ -2,6 +2,8 @@ package dev.connor.Carsharingplatform.module.vehicle.service;
 
 import dev.connor.Carsharingplatform.module.vehicle.dto.RepresentativeVehicleDto;
 import dev.connor.Carsharingplatform.module.vehicle.entity.RepresentativeVehicle;
+import dev.connor.Carsharingplatform.module.vehicle.mapper.RepresentativeVehicleMapper;
+import dev.connor.Carsharingplatform.module.vehicle.mapper.RepresentativeVehicleMapperImpl;
 import dev.connor.Carsharingplatform.module.vehicle.repository.RepresentativeVehicleRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -30,7 +32,7 @@ class RepresentativeVehicleServiceTest {
     private RepresentativeVehicleRepository repository;
 
     @Spy
-    private ModelMapper mapper;
+    private RepresentativeVehicleMapperImpl mapper;
 
     @Test
     void findAll() {
@@ -47,6 +49,7 @@ class RepresentativeVehicleServiceTest {
         var entity = entities.getContent().get(0);
         var dto = dtos.getContent().get(0);
 
+        Assertions.assertNotNull(dto);
         Assertions.assertEquals(entity.getRepresentativeVehicleId(), dto.getRepresentativeVehicleId());
         Assertions.assertEquals(entity.getRepresentativeVehicleName(), dto.getRepresentativeVehicleName());
         Assertions.assertEquals(entity.getManufacturerName(), dto.getManufacturerName());

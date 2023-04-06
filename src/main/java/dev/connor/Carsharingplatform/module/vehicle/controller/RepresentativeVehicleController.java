@@ -18,7 +18,8 @@ public class RepresentativeVehicleController {
     @GetMapping("/vehicles")
 //    @Secured({AuthorityRoleType.Roles.SUPER_MANAGER, AuthorityRoleType.Roles.OPERATION_MANAGER, AuthorityRoleType.Roles.CS_MANAGER, AuthorityRoleType.Roles.DELIVERY_MANAGER})
     public Page<RepresentativeVehicleDto.Response> getAll(Pageable pageable, RepresentativeVehicleDto.PageRequest request) {
-        return representativeVehicleService.getAll(pageable, request);
+        var response = representativeVehicleService.getAll(pageable, request);
+        return response;
     }
 
     @PostMapping("/vehicles")

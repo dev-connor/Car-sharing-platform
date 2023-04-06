@@ -1,6 +1,6 @@
 package dev.connor.Carsharingplatform.module.partner.dto;
 
-import com.google.common.collect.ImmutableMap;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,7 +10,6 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class AdminPartnerMemberDto {
 
@@ -133,9 +132,11 @@ public class AdminPartnerMemberDto {
     @Data
     @EqualsAndHashCode(callSuper = true)
     @FieldDefaults(level = AccessLevel.PRIVATE)
-    public static class Detail extends Item {
+    public static class Response extends Item {
         String locationAddress; // 주소지
         String detailAddress; // 주소 상세
+
+        @JsonIgnore
         String roadAddress; // 도로명 주소
         WorkSpace workSpace; // 차고지
     }
@@ -196,7 +197,7 @@ public class AdminPartnerMemberDto {
 
     @Data
     @FieldDefaults(level = AccessLevel.PRIVATE)
-    public static class ReqInsert {
+    public static class Request {
         Long partnerId;
         Long garageId;
         Long transportationAreaGroupId;
@@ -215,7 +216,7 @@ public class AdminPartnerMemberDto {
     @Data
     @EqualsAndHashCode(callSuper = true)
     @FieldDefaults(level = AccessLevel.PRIVATE)
-    public static class ReqUpdate extends ReqInsert {
+    public static class ReqUpdate extends Request {
         Long partnerMemberId;
     }
 
