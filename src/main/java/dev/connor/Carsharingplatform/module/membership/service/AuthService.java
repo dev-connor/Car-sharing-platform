@@ -4,7 +4,6 @@ import dev.connor.Carsharingplatform.module.partner.entity.PartnerMember;
 import dev.connor.Carsharingplatform.module.partner.repository.PartnerMemberRepository;
 import dev.connor.Carsharingplatform.module.partner.repository.PartnerRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -38,7 +36,7 @@ public class AuthService implements UserDetailsService {
 
         var grantedAuthorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
 
-        return new org.springframework.security.core.userdetails.User(partnerMember.getPhoneNumber(),
+        return new org.springframework.security.core.userdetails.User(String.valueOf(partnerMember.getPartnerMemberId()),
                 partnerMember.getRoadAddress(),
                 grantedAuthorities);
     }

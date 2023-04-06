@@ -9,6 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
@@ -24,7 +25,7 @@ import java.time.LocalDateTime;
 public class BaseEntity {
 
     @CreatedDate
-    @Column(name = "created_at", updatable = false)
+    @Column(updatable = false)
     LocalDateTime createdAt;
 
     @LastModifiedDate
@@ -40,6 +41,6 @@ public class BaseEntity {
     String updatedBy;
 
     @Version
-    @Column(name = "version", nullable = false)
+    @Column(nullable = false)
     Integer version;
 }

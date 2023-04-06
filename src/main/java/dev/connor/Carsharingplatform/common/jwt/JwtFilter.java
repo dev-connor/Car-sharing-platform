@@ -40,6 +40,7 @@ public class JwtFilter extends GenericFilterBean {
         chain.doFilter(request, response);
     }
 
+    // Header Authorization 값에서 Bearer 를 빼서 반환
     private String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
 

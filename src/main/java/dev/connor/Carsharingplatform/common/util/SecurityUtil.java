@@ -28,6 +28,10 @@ public class SecurityUtil {
             username = springSecurityUser.getUsername();
         } else if (authentication.getPrincipal() instanceof String) {
             username = (String) authentication.getPrincipal();
+
+            if (username.equals("anonymousUser")) {
+                username = "ANONYMOUS";
+            }
         }
 
         return Optional.ofNullable(username);

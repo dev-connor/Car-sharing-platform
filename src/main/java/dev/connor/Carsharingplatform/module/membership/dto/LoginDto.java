@@ -10,9 +10,9 @@ import lombok.*;
 @NoArgsConstructor
 public class LoginDto {
 
-    @ApiModelProperty(example = "admin")
+    @ApiModelProperty(example = "01122223333")
     private String phoneNumber;
 
-    @ApiModelProperty(example = "admin")
+    @ApiModelProperty(example = "flex")
     private String password;
 }

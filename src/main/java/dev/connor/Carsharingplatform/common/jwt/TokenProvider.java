@@ -46,7 +46,7 @@ public class TokenProvider implements InitializingBean {
         Date validity = new Date(now + 86400);
 
         var jwt = Jwts.builder()
-                .setSubject("swagger")
+                .setSubject("TokenProvider")
                 .claim(AUTHORITIES_KEY, "ROLE_ADMIN")
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(validity)
