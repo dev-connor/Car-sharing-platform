@@ -2,6 +2,7 @@ package dev.connor.Carsharingplatform.common.handler;
 
 import dev.connor.Carsharingplatform.common.base.ErrorResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -9,6 +10,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestControllerAdvice
 public class ExceptionHandlerAdvice {
@@ -22,7 +24,7 @@ public class ExceptionHandlerAdvice {
                 .message("해당 유저의 접근 권한이 없습니다.")
                 .build();
 
-        e.printStackTrace();
+        log.error(e.getMessage(), e);
         return ResponseEntity.status(httpStatus).body(error);
     }
 
@@ -35,7 +37,7 @@ public class ExceptionHandlerAdvice {
                 .message("아이디가 없거나 비밀번호가 틀렸습니다.")
                 .build();
 
-        e.printStackTrace();
+        log.error(e.getMessage(), e);
         return ResponseEntity.status(httpStatus).body(error);
     }
 
@@ -48,7 +50,7 @@ public class ExceptionHandlerAdvice {
                 .message("예상치 못한 예외가 발생했습니다.")
                 .build();
 
-        e.printStackTrace();
+        log.error(e.getMessage(), e);
         return ResponseEntity.status(httpStatus).body(error);
     }
 }

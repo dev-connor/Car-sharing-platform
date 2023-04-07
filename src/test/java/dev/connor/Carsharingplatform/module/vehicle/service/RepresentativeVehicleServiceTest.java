@@ -2,7 +2,6 @@ package dev.connor.Carsharingplatform.module.vehicle.service;
 
 import dev.connor.Carsharingplatform.module.vehicle.dto.RepresentativeVehicleDto;
 import dev.connor.Carsharingplatform.module.vehicle.entity.RepresentativeVehicle;
-import dev.connor.Carsharingplatform.module.vehicle.mapper.RepresentativeVehicleMapper;
 import dev.connor.Carsharingplatform.module.vehicle.mapper.RepresentativeVehicleMapperImpl;
 import dev.connor.Carsharingplatform.module.vehicle.repository.RepresentativeVehicleRepository;
 import org.junit.jupiter.api.Assertions;
@@ -13,7 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -40,10 +38,10 @@ class RepresentativeVehicleServiceTest {
         // given
         var entities = getPage();
 
-        BDDMockito.given(repository.getAll(any(), any())).willReturn(entities);
+        BDDMockito.given(repository.findAll(any(PageRequest.class), any())).willReturn(entities);
 
         // when
-        var dtos = service.getAll(PageRequest.of(0, 20), new RepresentativeVehicleDto.PageRequest());
+        var dtos = service.findAll(PageRequest.of(0, 20), new RepresentativeVehicleDto.PageRequest());
 
         // then
         var entity = entities.getContent().get(0);

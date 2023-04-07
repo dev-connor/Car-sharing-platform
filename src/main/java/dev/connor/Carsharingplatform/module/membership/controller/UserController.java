@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/api")
 public class UserController {
     private final UserService userService;
 
@@ -22,20 +21,20 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/api/signup")
     public ResponseEntity<UserDto> signup(
             @Validated @RequestBody UserDto userDto
     ) throws DuplicateMemberException {
         return ResponseEntity.ok(userService.signup(userDto));
     }
 
-    @GetMapping("/user")
+    @GetMapping("/api/user")
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<UserDto> getMyUserInfo(HttpServletRequest request) {
         return ResponseEntity.ok(userService.getMyUserWithAuthorities());
     }
 
-    @GetMapping("/user/{username}")
+    @GetMapping("/api/user/{username}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<UserDto> getUserInfo(@PathVariable String username) {
         return ResponseEntity.ok(userService.getUserWithAuthorities(username));

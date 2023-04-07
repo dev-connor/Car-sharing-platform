@@ -28,7 +28,7 @@ public class AuthService implements UserDetailsService {
     }
 
     private org.springframework.security.core.userdetails.User createUser(String phoneNumber, PartnerMember partnerMember) {
-        var partner = partnerRepository.findByPartnerId(partnerMember.getPartnerId());
+//        var partner = partnerRepository.findByPartnerId(partnerMember.getPartnerId());
 
 //        List<GrantedAuthority> grantedAuthorities = partner.getPartnerAuthorityRoles().stream()
 //                .map(authority -> new SimpleGrantedAuthority("ROLE_USER"))

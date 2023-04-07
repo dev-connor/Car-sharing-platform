@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@RequestMapping("/api/common/menus/user")
 @RequiredArgsConstructor
-@RequestMapping("/api/common/menus")
 @RestController
 public class MenuController {
     private final MenuService menuService;
 
-    @GetMapping("/user")
+    @GetMapping
     public List<MenuDto.FindAll> findUserMenus() {
         List<MenuDto.FindAll> response = menuService.findUserMenus();
         return response;

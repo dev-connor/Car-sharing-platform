@@ -27,12 +27,9 @@ public class PartnerMember extends BaseEntity {
     @Column(name = "partner_member_id")
     Long partnerMemberId;
 
-//    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "partner_id", nullable = false)
-//    Partner partner;
-
-    @Column(name = "partner_id")
-    Long partnerId;
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "partner_id", nullable = false)
+    Partner partner;
 
     @Column(name = "transportation_area_group_id")
     Long transportationAreaGroupId;

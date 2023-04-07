@@ -3,6 +3,7 @@ package dev.connor.Carsharingplatform.module.partner.service;
 import dev.connor.Carsharingplatform.module.partner.dto.AdminPartnerMemberDto;
 import dev.connor.Carsharingplatform.module.partner.entity.PartnerMember;
 import dev.connor.Carsharingplatform.module.partner.repository.PartnerMemberRepository;
+import dev.connor.Carsharingplatform.module.partner.repository.PartnerRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DuplicateKeyException;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class PartnerMemberService {
     private final ModelMapper mapper;
+    private final PartnerRepository partnerRepository;
     private final PartnerMemberRepository partnerMemberRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -24,15 +26,17 @@ public class PartnerMemberService {
             throw new DuplicateKeyException("이미 가입되어 있는 유저입니다.");
         }
 
-        var entity = mapper.map(request, PartnerMember.class);
+        var partnerMember = mapper.map(request, PartnerMember.class);
+        var partner = partnerRepository.findById(request.getPartnerId()).get();
 
-        if(entity.getUsedYn() == null) {
-            entity.setUsedYn('N');
+        if(partnerMember.getUsedYn() == null) {
+            partnerMember.setUsedYn('N');
         }
 
-        entity.setRoadAddress(passwordEncoder.encode(request.getPassword()));
-        entity = partnerMemberRepository.save(entity);
+        partnerMember.setRoadAddress(passwordEncoder.encode(request.getPassword()));
+        partnerMember.setPartner(partner);
+        partnerMember = partnerMemberRepository.save(partnerMember);
 
-        return mapper.map(entity, AdminPartnerMemberDto.Response.class);
+        return mapper.map(partnerMember, AdminPartnerMemberDto.Response.class);
     }
 }

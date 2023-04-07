@@ -5,11 +5,10 @@ import dev.connor.Carsharingplatform.module.partner.service.PartnerMemberService
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping(AdminPartnerMemberController.ROOT_URI)
 @RequiredArgsConstructor
+@RequestMapping("/api/admin/partners/members")
+@RestController
 public class AdminPartnerMemberController {
-    public static final String ROOT_URI = "/api/admin/partners/members";
     private final PartnerMemberService partnerMemberService;
 
     @PostMapping

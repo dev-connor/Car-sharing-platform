@@ -18,8 +18,7 @@ public interface RepresentativeVehicleRepository extends JpaRepository<Represent
 
 
 interface RepresentativeVehicleCustomRepository {
-    Page<RepresentativeVehicle> getAll(Pageable pageable, RepresentativeVehicleDto.PageRequest request);
-
+    Page<RepresentativeVehicle> findAll(Pageable pageable, RepresentativeVehicleDto.PageRequest request);
 }
 
 class RepresentativeVehicleCustomRepositoryImpl extends QuerydslRepositorySupport implements RepresentativeVehicleCustomRepository {
@@ -28,7 +27,7 @@ class RepresentativeVehicleCustomRepositoryImpl extends QuerydslRepositorySuppor
     }
 
     @Override
-    public Page<RepresentativeVehicle> getAll(Pageable pageable, RepresentativeVehicleDto.PageRequest request) {
+    public Page<RepresentativeVehicle> findAll(Pageable pageable, RepresentativeVehicleDto.PageRequest request) {
         var entity = QRepresentativeVehicle.representativeVehicle;
         BooleanBuilder builder = new BooleanBuilder();
 

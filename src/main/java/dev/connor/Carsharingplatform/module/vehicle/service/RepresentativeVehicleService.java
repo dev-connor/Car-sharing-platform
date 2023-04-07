@@ -21,8 +21,8 @@ public class RepresentativeVehicleService {
     private final RepresentativeVehicleRepository representativeVehicleRepository;
     private final RepresentativeVehicleMapper mapper;
 
-    public Page<RepresentativeVehicleDto.Response> getAll(Pageable pageable, RepresentativeVehicleDto.PageRequest request) {
-        Page<RepresentativeVehicle> representativeVehicles = representativeVehicleRepository.getAll(pageable, request);
+    public Page<RepresentativeVehicleDto.Response> findAll(Pageable pageable, RepresentativeVehicleDto.PageRequest request) {
+        Page<RepresentativeVehicle> representativeVehicles = representativeVehicleRepository.findAll(pageable, request);
         var response = representativeVehicles.map(mapper::toDto);
 
         return response;

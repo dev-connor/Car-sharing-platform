@@ -7,8 +7,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQL10Dialect
-        format_sql: true
-        show_sql: true
+        format_sql: false
+        show_sql: false
         use_sql_comments: false
         query:
           in_clause_parameter_padding: true

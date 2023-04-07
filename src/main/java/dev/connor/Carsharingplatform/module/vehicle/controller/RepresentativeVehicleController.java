@@ -11,24 +11,25 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.util.Assert.isTrue;
 
 @RequiredArgsConstructor
+@RequestMapping("/vehicles")
 @RestController
 public class RepresentativeVehicleController {
     private final RepresentativeVehicleService representativeVehicleService;
 
-    @GetMapping("/vehicles")
+    @GetMapping
 //    @Secured({AuthorityRoleType.Roles.SUPER_MANAGER, AuthorityRoleType.Roles.OPERATION_MANAGER, AuthorityRoleType.Roles.CS_MANAGER, AuthorityRoleType.Roles.DELIVERY_MANAGER})
-    public Page<RepresentativeVehicleDto.Response> getAll(Pageable pageable, RepresentativeVehicleDto.PageRequest request) {
-        var response = representativeVehicleService.getAll(pageable, request);
+    public Page<RepresentativeVehicleDto.Response> findAll(Pageable pageable, RepresentativeVehicleDto.PageRequest request) {
+        var response = representativeVehicleService.findAll(pageable, request);
         return response;
     }
 
-    @PostMapping("/vehicles")
+    @PostMapping
 //    @Secured({AuthorityRoleType.Roles.SUPER_MANAGER, AuthorityRoleType.Roles.OPERATION_MANAGER})
-    public RepresentativeVehicleDto.Response save(@RequestBody @Validated RepresentativeVehicleDto.SaveRequest request) {
+    public RepresentativeVehicleDto.Response create(@RequestBody @Validated RepresentativeVehicleDto.SaveRequest request) {
         return representativeVehicleService.create(request);
     }
 
-    @PutMapping("/vehicles/{representativeVehicleId}")
+    @PutMapping("/{representativeVehicleId}")
 //    @Secured({AuthorityRoleType.Roles.SUPER_MANAGER, AuthorityRoleType.Roles.OPERATION_MANAGER})
     public RepresentativeVehicleDto.Response update(@PathVariable("representativeVehicleId") Long representativeVehicleId,
                                                        @RequestBody @Validated RepresentativeVehicleDto.SaveRequest detail) {
